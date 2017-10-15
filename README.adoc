@@ -11,9 +11,10 @@ use the GemfireTemplate and use Repositories.
 
 == Pre-requisites
 This app depends (currently) on a pre-defined cluster running and having some data loaded. This package provides a
-self-contained version of the server startup that leverages the same domain objects. It will start a locator (on
-  port `41111`) and 3 servers and will load data into the servers. In order to run this demo, you will need GemFire
-  installed, version 9.0.4 or 9.1. You can obtain GemFire at the http://network.pivotal.io[Pivotal Download site]
+self-contained version of the server startup that leverages the same domain objects. This can be found in the
+`server-bootstrap` folder in this project. Scripts there will start a locator (on port `41111`) and 3 servers and
+will load data into the servers. In order to run this demo, you will need GemFire installed, version 9.0.4 or 9.1.
+You can obtain GemFire at the http://network.pivotal.io[Pivotal Download site]. Feel free to install anywhere you like.
 
 You will also need to modify the `gf.config` file (or `setEnv.bat` file) to point to an installation of Gemfire (the
   parent folder of `bin`).
