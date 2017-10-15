@@ -1,0 +1,25 @@
+= GemFire Spring Boot demo application
+
+== Overview
+This project is designed to test the new Spring Boot support for Spring Data GemFire. It focuses on two key areas - one is related to how beans are configured and what beans are configured in order to enable  a client app (Spring Boot app) to interact with a GemFire cluster. There are two key ways this can be verified.
+
+* Integration testing - The `BasicSpringClientTests` class is used to assert the ability to use the Regions directly, use the GemfireTemplate and use Repositories.
+* Invoking the controllers created to expose the contents of the regions `CustomerController` and 'BookController`
+
+== Pre-requisites
+This app depends (currently) on a pre-defined cluster running and having some data loaded. This package provides a self-contained version of the server startup that leverages the same domain objects. It will start a locator (on port `41111`) and 3 servers and will load data into the servers. In order to run this demo, you will need GemFire installed, version 9.0.4 or 9.1. You can obtain GemFire at the http://network.pivotal.io[Pivotal Download site]
+
+You will also need to modify the `gf.config` file (or `setEnv.bat` file) to point to an installation of Gemfire (the parent folder of `bin`).
+
+Once done, run *startServer.sh* (or *startServer.bat*) to start the locator and servers. 
+
+NOTE: To shut down the cluster, run *stopServer.sh* (or *stopServer.bat*)
+
+== Testing
+Before running this set of tests, be sure to start the cluster as discussed above and ensure data is loaded. Then, simply run the unit test modules to do a simple test
+
+== Running the WebApp
+To use the Web Application(s), you need to compile and run the spring boot application from the command line - or run the boot application from the Spring Boot Dashboard in your IDE. This will start up a web server and allow you to run the test using either *curl* or via a browser. The URL's to test this are:
+
+* CustomerController - *curl localhost:8080/customers*
+* BookController - *curl localhost:8080/books*
