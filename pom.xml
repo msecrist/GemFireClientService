@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.pivotal.edu</groupId>
-	<artifactId>GemClientService</artifactId>
+	<artifactId>GemFireClientService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
