@@ -1,28 +1,26 @@
 package io.pivotal.edu.gemfire;
 
 import org.apache.geode.cache.GemFireCache;
-import org.apache.geode.cache.Region;
-import org.apache.geode.cache.client.ClientRegionFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.gemfire.GemfireTemplate;
+import org.springframework.data.gemfire.cache.config.EnableGemfireCaching;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
+import org.springframework.data.gemfire.config.annotation.EnableCachingDefinedRegions;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 import io.pivotal.bookshop.domain.BookMaster;
 import io.pivotal.bookshop.domain.Customer;
 
-
-
-
 @ClientCacheApplication(name="GemFireClient" )
 @EnableGemfireRepositories
+@EnableCachingDefinedRegions
 public class GemFireConfiguration {
 
-	@Bean
+	@Bean("Customer")
 	public ClientRegionFactoryBean<Integer, Customer> customerRegion (GemFireCache gemfireCache) {
 		ClientRegionFactoryBean<Integer, Customer> customers = new ClientRegionFactoryBean<>();
 		customers.setCache(gemfireCache);
