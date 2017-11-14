@@ -21,9 +21,12 @@ import io.pivotal.bookshop.domain.Customer;
 public class CustomerServiceImpl implements CustomerService {
 	@Resource(name = "Customer")
 	private Region<Integer, Customer> customers;
-
-	@Autowired
 	private CustomerDbRepository customerDbRepo;
+	
+	@Autowired
+	public CustomerServiceImpl(CustomerDbRepository customerDbRepo) {
+		this.customerDbRepo = customerDbRepo;
+	}
 	
 	@Override
 	public Customer getCustomerById(Integer customerNumber) {
@@ -42,6 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return customers.getAll(customers.keySetOnServer());
 	}
 	
+	@Override
 	@Cacheable(value = "Customer", key = "#customerNumber")
 	public Customer getCustomerFromDb(Integer customerNumber) {
 		return customerDbRepo.getCustomerById(customerNumber);
