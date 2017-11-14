@@ -1,25 +1,23 @@
 package io.pivotal.edu.gemfire;
 
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.geode.cache.Region;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.pivotal.bookshop.domain.Customer;
-
 @RestController
 public class CustomerController {
-	@Resource(name="customerRegion")
-	Region<Integer,Customer> customers;
+	
+	@Autowired
+	private CustomerService service;
 	
 	@RequestMapping("/customers")
-	public String customers() {
-		Map<Integer, Customer> cust = customers.getAll(customers.keySetOnServer());
-		return cust.toString();
-		
+	public String customers() {		
+		return service.getAllCustomers().toString();
+	}
+	
+	@RequestMapping("/customer/{customerId}")
+	public String  addCustomers(Integer customerId) {
+		return service.getCustomerById(customerId).toString();
 	}
 
 }
