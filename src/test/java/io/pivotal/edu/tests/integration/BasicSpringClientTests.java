@@ -1,4 +1,4 @@
-package io.pivotal.edu.tests;
+package io.pivotal.edu.tests.integration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,13 +29,11 @@ public class BasicSpringClientTests {
 	  @Autowired
 	  GemfireTemplate template;
 	  
-	  // TODO-12: Autowire in your newly created Repository interface
 	  @Autowired
 	  private BookMasterRepository repo;
 
 	  
 	  @Test
-	  // TODO-05: Run first test to verify basic configuration
 	  public void simpleClientTest() {
 	    BookMaster book = books.get(456);
 	    assertEquals("Clifford the Big Red Dog", book.getTitle());
@@ -43,8 +41,6 @@ public class BasicSpringClientTests {
 	  
 	  @Test
 	  public void testGemFireTemplate() {
-	    // TODO-08: Implement this test by writing a query to return books having the author 'Daisy Mae West'
-	    //          Assert you only get one item and that it's title is "A Treatise of Treatises"
 	    SelectResults<BookMaster> results = template.query("author = 'Daisy Mae West'");
 	    assertEquals(1, results.size());
 	    assertEquals("A Treatise of Treatises", results.asList().get(0).getTitle());
@@ -52,8 +48,6 @@ public class BasicSpringClientTests {
 	  
 	  @Test
 	  public void testGemFireRepositories() {
-	    // TODO-13: Write a test that calls your findBy method. Use the above query as an examle of how to perform the query
-	    //          and assert the correct results
 	    List<BookMaster> results = repo.findByAuthor("Daisy Mae West");
 	    assertEquals(1, results.size());
 	    assertEquals("A Treatise of Treatises", results.get(0).getTitle());
