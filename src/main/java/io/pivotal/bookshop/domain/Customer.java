@@ -4,38 +4,40 @@ package io.pivotal.bookshop.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.springframework.data.gemfire.mapping.annotation.Region;
+
+@Region("Customer")
 public class Customer implements Serializable
 {
 	private static final long serialVersionUID = 7526471155622776147L;
 
-	  
 	private Integer customerNumber;
-		
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private Address primaryAddress;
 
 	private ArrayList <Integer> myBookOrders;
-	
-	
+
+
 	public Customer (int customerNumber, String firstName, String lastName)
 	{
 		super();
-		this.customerNumber = new Integer(customerNumber);
+		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.myBookOrders = new ArrayList();
-		
+		this.myBookOrders = new ArrayList<>();
+
 	}
-	
+
 	public Customer (int customerNumber, String firstName, String lastName, String postalCode)
 	{
 		this (customerNumber, firstName, lastName);
 		this.primaryAddress = new Address(postalCode);
 	}
-	
+
 	public Customer(Integer customerNumber, String firstName,
 			String lastName, Address address,
 			ArrayList <Integer> orders)
@@ -47,7 +49,7 @@ public class Customer implements Serializable
 		this.primaryAddress = address;
 		this.myBookOrders = orders;
 	}
-	
+
 	public Customer(Integer customerNumber, String firstName,
 			String lastName, Address address)
 	{
@@ -57,14 +59,14 @@ public class Customer implements Serializable
 		this.lastName = lastName;
 		this.primaryAddress = address;
 	}
-	
+
 	public void addOrder(Integer orderKey)
 	{
 		if (myBookOrders == null)
 		{
 			myBookOrders = new ArrayList<Integer>();
 		}
-		
+
 		myBookOrders.add(orderKey);
 	}
 
@@ -103,7 +105,7 @@ public class Customer implements Serializable
 		this.lastName = lastName;
 	}
 
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -140,7 +142,7 @@ public class Customer implements Serializable
 				+ ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", postalCode=" + getPrimaryAddress().getPostalCode() + "]";
 	}
-	
+
 	public Address getPrimaryAddress()
 	{
 		return primaryAddress;
@@ -150,5 +152,4 @@ public class Customer implements Serializable
 	{
 		this.primaryAddress = primaryAddress;
 	}
-	
 }

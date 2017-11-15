@@ -2,18 +2,21 @@ package io.pivotal.bookshop.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.gemfire.mapping.annotation.Region;
+
+@Region("InventoryItem")
 public class InventoryItem implements Serializable
 {
 	private static final long serialVersionUID = 7526471155622776147L;
-	
+
 	private int itemNumber;
 	private float costToXYZ;
 	private float priceToCustomer;
 	private float quantityInStock;
 	private String vendor;
 	private String location;
-		
-	
+
+
 	public InventoryItem(int itemNumber, float costToXYZ,
 			float priceToCustomer, float quantityInStock, String vendor,
 			String location)
@@ -26,7 +29,7 @@ public class InventoryItem implements Serializable
 		this.vendor = vendor;
 		this.location = location;
 	}
-	
+
 	public String getVendor()
 	{
 		return vendor;
@@ -75,7 +78,7 @@ public class InventoryItem implements Serializable
 	{
 		this.quantityInStock = quantityInStock;
 	}
-	
+
 	@Override
 	public String toString()
 	{

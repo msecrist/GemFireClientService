@@ -5,11 +5,11 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.gemfire.mapping.annotation.Region;
 
-@Region(name="BookMaster")
+@Region("BookMaster")
 public class BookMaster implements Serializable
 {
 	private static final long serialVersionUID = 7526471155622776147L;
-	
+
 	@Id
 	private int itemNumber;
 	private String description;
@@ -17,7 +17,7 @@ public class BookMaster implements Serializable
 	private int yearPublished;
 	private String author;
 	private String title;
-	
+
 	public BookMaster(int itemNumber, String description, float retailCost,
 			int yearPublished, String author, String title)
 	{
@@ -29,7 +29,7 @@ public class BookMaster implements Serializable
 		this.author = author;
 		this.title = title;
 	}
-	
+
 
 	@Override
 	public int hashCode()
@@ -105,7 +105,6 @@ public class BookMaster implements Serializable
 	{
 		this.title = title;
 	}
-
 
 	@Override
 	public String toString()
