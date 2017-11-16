@@ -10,8 +10,4 @@ public interface CustomerService {
 
 	Map<Integer, Customer> getAllCustomers();
 
-	// While this shouldn't need to be here, it's the simplest way to ensure proper
-	// proxying
-	Customer getCustomerFromDb(Integer customerNumber);
-
 }

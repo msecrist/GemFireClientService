@@ -20,7 +20,7 @@ import io.pivotal.bookshop.domain.Customer;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	@Resource(name = "Customer")
-	private Region<Integer, Customer> customers;
+	private Region<Integer, Customer> customers;	
 	private CustomerDbRepository customerDbRepo;
 	
 	@Autowired
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = customers.get(customerNumber);
 		if (customer == null) {
 			System.out.println("Falling over to DB");
-			customer = getCustomerFromDb(customerNumber);
+			customer = customerDbRepo.getCustomerById(customerNumber);
 		}
 		System.out.println("Customer = " + customer);
 		return customer;
@@ -43,12 +43,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Map<Integer, Customer> getAllCustomers() {
 		return customers.getAll(customers.keySetOnServer());
-	}
-	
-	@Override
-	@Cacheable(value = "Customer", key = "#customerNumber")
-	public Customer getCustomerFromDb(Integer customerNumber) {
-		return customerDbRepo.getCustomerById(customerNumber);
 	}
 
 }

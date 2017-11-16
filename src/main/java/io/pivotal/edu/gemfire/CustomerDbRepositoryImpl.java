@@ -3,6 +3,7 @@ package io.pivotal.edu.gemfire;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import io.pivotal.bookshop.domain.Address;
@@ -26,6 +27,7 @@ public class CustomerDbRepositoryImpl implements CustomerDbRepository {
 	 * Simulate a DB Fetch
 	 */
 	@Override
+	@Cacheable("Customer")
 	public Customer getCustomerById(Integer id) {
 		if (! customers.containsKey(id))
 			throw new RuntimeException("Customer with key: " + id + " not found");
