@@ -8,7 +8,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author John Blum
  * @since 1.0.0
  */
-public class AbstractCacheableService {
+@SuppressWarnings("all")
+public abstract class AbstractCacheableService {
 
 	private final AtomicBoolean cacheMiss = new AtomicBoolean(false);
 
@@ -19,11 +20,11 @@ public class AbstractCacheableService {
 
 	/* (non-Javadoc) */
 	public boolean isCacheMiss() {
-		return cacheMiss.compareAndSet(true, false);
+		return this.cacheMiss.compareAndSet(true, false);
 	}
 
 	/* (non-Javadoc) */
 	protected boolean setCacheMiss() {
-		return cacheMiss.getAndSet(true);
+		return this.cacheMiss.getAndSet(true);
 	}
 }
