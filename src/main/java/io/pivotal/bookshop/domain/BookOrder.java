@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.data.gemfire.mapping.annotation.Region;
+
+@Region("BookOrder")
 public class BookOrder implements Serializable
 {
 	private static final long serialVersionUID = 7526471155622776147L;
@@ -15,7 +18,7 @@ public class BookOrder implements Serializable
 	private ArrayList <BookOrderItem> orderItems;
 	private Integer customerNumber;
 	private float totalPrice;
-	
+
 	public BookOrder() {}
 
 	public BookOrder(Integer orderNumber, Date orderDate, float shippingCost,
@@ -31,7 +34,7 @@ public class BookOrder implements Serializable
 		this.customerNumber = customerNumber;
 		this.totalPrice = totalPrice;
 	}
-	
+
 	public float getTotalPrice()
 	{
 		return totalPrice;
@@ -43,8 +46,8 @@ public class BookOrder implements Serializable
 	{
 		this.totalPrice = totalPrice;
 	}
-	
-	
+
+
 
 	public Integer getCustomerNumber()
 	{
@@ -67,10 +70,10 @@ public class BookOrder implements Serializable
 		{
 			orderItems = new ArrayList();
 		}
-		
+
 		orderItems.add(item);
 	}
-	
+
 	public Integer getOrderNumber()
 	{
 		return orderNumber;

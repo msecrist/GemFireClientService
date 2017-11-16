@@ -1,6 +1,7 @@
 package io.pivotal.edu.tests.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -12,14 +13,14 @@ public class CustomerDbRpositoryTests {
 
 	@Test
 	public void testValidFetch() {
-		CustomerDbRepository cr = new CustomerDbRepositoryImpl();
-		Customer c = cr.getCustomerById(1);
-		assertEquals("Failed", c.getFirstName(), "Mark");
+		CustomerDbRepository customerRepository = new CustomerDbRepositoryImpl();
+		Customer customer = customerRepository.getCustomerById(1);
+		assertEquals("Failed", customer.getFirstName(), "Mark");
 	}
-	
-	@Test(expected=RuntimeException.class)
+
+	@Test(expected = RuntimeException.class)
 	public void testInvalidFetch() {
-		CustomerDbRepository cr = new CustomerDbRepositoryImpl();
-		Customer c = cr.getCustomerById(5);
+		CustomerDbRepository customerRepository = new CustomerDbRepositoryImpl();
+		assertNotNull(customerRepository.getCustomerById(5));
 	}
 }
