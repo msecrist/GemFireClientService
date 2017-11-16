@@ -1,6 +1,5 @@
 package io.pivotal.bookshop.domain;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -21,10 +20,8 @@ public class Customer implements Serializable
 
 	private ArrayList <Integer> myBookOrders;
 
-
 	public Customer (int customerNumber, String firstName, String lastName)
 	{
-		super();
 		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -42,7 +39,6 @@ public class Customer implements Serializable
 			String lastName, Address address,
 			ArrayList <Integer> orders)
 	{
-		super();
 		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -53,7 +49,6 @@ public class Customer implements Serializable
 	public Customer(Integer customerNumber, String firstName,
 			String lastName, Address address)
 	{
-		super();
 		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -105,6 +100,9 @@ public class Customer implements Serializable
 		this.lastName = lastName;
 	}
 
+	public String getName() {
+		return String.format("%1$s %2$s", getFirstName(), getLastName());
+	}
 
 	@Override
 	public int hashCode()

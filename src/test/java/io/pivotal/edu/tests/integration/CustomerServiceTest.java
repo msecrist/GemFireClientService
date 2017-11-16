@@ -1,9 +1,16 @@
 package io.pivotal.edu.tests.integration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+import org.apache.geode.cache.Region;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +35,21 @@ import io.pivotal.edu.gemfire.GemFireConfiguration;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CustomerServiceTest {
 
+	@Resource(name = "Customer")
+	private Region<Integer, Customer> customers;
+
 	@Autowired
 	private CustomerService customerService;
+
+	@Before
+	public void setup() {
+
+		this.customerService.findCustomerByName("Paul", "Chapman")
+			.ifPresent(customer -> this.customers.remove(customer.getCustomerNumber()));
+
+		this.customerService.findCustomerByName("Eitan", "Suez")
+			.ifPresent(customer -> this.customers.remove(customer.getCustomerNumber()));
+	}
 
 	@Test
 	public void testAGetCustomerFromGemFire() {
@@ -40,8 +60,29 @@ public class CustomerServiceTest {
 
 	}
 
+	@Test
+	public void testBGetCustomerFromDbCachesAsExpected() {
+
+		Customer paulChapman = customerService.getCustomerByIdFromDb(3);
+
+		assertTrue(customerService.isCacheMiss());
+		assertNotNull(paulChapman);
+		assertEquals("Paul Chapman", paulChapman.getName());
+
+		Customer paulChapmanAgain = customerService.getCustomerByIdFromDb(paulChapman.getCustomerNumber());
+
+		assertFalse(customerService.isCacheMiss());
+		assertEquals(paulChapman, paulChapmanAgain);
+
+		Customer eitanSuez = customerService.getCustomerByIdFromDb(4);
+
+		assertTrue(customerService.isCacheMiss());
+		assertNotNull(eitanSuez);
+		assertEquals("Eitan Suez", eitanSuez.getName());
+	}
+
 	@Test()
-	public  void testBGetAllCustomersBeforeDBFetch() {
+	public  void testCGetAllCustomersBeforeDBFetch() {
 
 		Map<Integer, Customer> customers = customerService.getAllCustomers();
 
@@ -49,15 +90,16 @@ public class CustomerServiceTest {
 	}
 
 	@Test
-	public void testCGetCustomerFromDb() {
+	public void testDGetCustomerFromDb() {
 
 		Customer customer = customerService.getCustomerById(1);
 
+		assertTrue(customerService.isCacheMiss());
 		assertEquals("Failed", customer.getFirstName(), "Mark");
 	}
 
 	@Test()
-	public  void testDGetAllCustomersAfterDBFetch() {
+	public  void testEGetAllCustomersAfterDBFetch() {
 
 		Map<Integer, Customer> customers = customerService.getAllCustomers();
 
