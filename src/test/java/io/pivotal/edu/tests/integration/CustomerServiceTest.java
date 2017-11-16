@@ -28,7 +28,7 @@ public class CustomerServiceTest {
 	@Test
 	public void testAGetCustomerFromGemFire() {
 		Customer c = service.getCustomerById(5543);
-		assertEquals("Failed", c.getFirstName(), "Lula");
+		assertEquals("Failed", "Lula", c.getFirstName());
 		
 	}
 	
@@ -40,8 +40,8 @@ public class CustomerServiceTest {
 	
 	@Test
 	public void testCGetCustomerFromDb() {
-		Customer c = service.getCustomerById(1);
-		assertEquals("Failed", c.getFirstName(), "Mark");
+		Customer c = service.getCustomerById(2);
+		assertEquals("Failed", "Mark",c.getFirstName());
 	}
 	
 	@Test()
