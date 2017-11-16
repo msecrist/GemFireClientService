@@ -23,7 +23,7 @@ import io.pivotal.edu.gemfire.BookMasterRepository;
 @SpringBootTest
 public class BasicSpringClientTests {
 
-	  @Resource(name="bookMasterRegion")
+	  @Resource(name="BookMaster")
 	  Region<Integer, BookMaster> books;
 	  
 	  @Autowired

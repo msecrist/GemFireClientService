@@ -14,7 +14,7 @@ import io.pivotal.bookshop.domain.BookMaster;
 
 @RestController
 public class BookController {
-	@Resource(name="bookMasterRegion")
+	@Resource(name="BookMaster")
 	Region<Integer,BookMaster> books;
 	
 	@Autowired

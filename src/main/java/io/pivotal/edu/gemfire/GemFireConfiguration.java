@@ -5,11 +5,13 @@ import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.gemfire.GemfireTemplate;
 import org.springframework.data.gemfire.cache.config.EnableGemfireCaching;
 import org.springframework.data.gemfire.client.ClientRegionFactoryBean;
 import org.springframework.data.gemfire.config.annotation.ClientCacheApplication;
 import org.springframework.data.gemfire.config.annotation.EnableCachingDefinedRegions;
+import org.springframework.data.gemfire.config.annotation.EnableClusterConfiguration;
 import org.springframework.data.gemfire.repository.config.EnableGemfireRepositories;
 
 import io.pivotal.bookshop.domain.BookMaster;
@@ -30,7 +32,7 @@ public class GemFireConfiguration {
 		return customers;
 	}
 	
-	@Bean
+	@Bean("BookMaster")
 	public ClientRegionFactoryBean<Integer, BookMaster> bookMasterRegion (GemFireCache gemfireCache) {
 		ClientRegionFactoryBean<Integer, BookMaster> books = new ClientRegionFactoryBean<>();
 		books.setCache(gemfireCache);
@@ -41,10 +43,10 @@ public class GemFireConfiguration {
 	}	
 	
 	@Bean
-	@Autowired
-	public GemfireTemplate template(@Qualifier("bookMasterRegion") ClientRegionFactoryBean<Integer, BookMaster> bookMaster) {
+	@DependsOn("BookMaster")
+	public GemfireTemplate template(GemFireCache gemfireCache) {
 			
-			return new GemfireTemplate(bookMaster.getRegion());
+			return new GemfireTemplate(gemfireCache.getRegion("BookMaster"));
 	}
 	
 }
