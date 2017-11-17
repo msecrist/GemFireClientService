@@ -9,6 +9,14 @@ import org.springframework.stereotype.Repository;
 import io.pivotal.bookshop.domain.Address;
 import io.pivotal.bookshop.domain.Customer;
 
+/**
+ * Simulates a Repository that fetches data from an RDBMS. This is solely to make the
+ * demo simpler, requiring fewer dependencies on system resources. May re-factor at a 
+ * later time to actually use a DB and use this as a stub implementation.
+ * 
+ * @author msecrist
+ *
+ */
 @Repository
 public class CustomerDbRepositoryImpl implements CustomerDbRepository {
 	private Map<Integer, Customer> customers = new HashMap<>();
@@ -24,7 +32,10 @@ public class CustomerDbRepositoryImpl implements CustomerDbRepository {
 	}
 	
 	/**
-	 * Simulate a DB Fetch
+	 * Simulate a DB Fetch. Note the use of @Cacheable here to stash the fetched
+	 * object in the cache, which in this demo is GemFire. The use of 'Customer' 
+	 * aligns with the name of the region. The key is inferred from the single 
+	 * argument
 	 */
 	@Override
 	@Cacheable("Customer")
