@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.apache.geode.cache.Region;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import io.pivotal.bookshop.domain.Customer;
@@ -39,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 		System.out.println("Customer = " + customer);
 		return customer;
 	}
-	
+
 	@Override
 	public Map<Integer, Customer> getAllCustomers() {
 		return customers.getAll(customers.keySetOnServer());
