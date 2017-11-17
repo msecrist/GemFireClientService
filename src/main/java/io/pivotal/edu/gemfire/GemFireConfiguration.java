@@ -27,7 +27,6 @@ public class GemFireConfiguration {
 		ClientRegionFactoryBean<Integer, Customer> customers = new ClientRegionFactoryBean<>();
 		customers.setCache(gemfireCache);
 		customers.setClose(true);
-		customers.setName("Customer");
 		customers.setShortcut(ClientRegionShortcut.PROXY);
 		return customers;
 	}
@@ -37,7 +36,6 @@ public class GemFireConfiguration {
 		ClientRegionFactoryBean<Integer, BookMaster> books = new ClientRegionFactoryBean<>();
 		books.setCache(gemfireCache);
 		books.setClose(true);
-		books.setName("BookMaster");
 		books.setShortcut(ClientRegionShortcut.PROXY);
 		return books;
 	}	
